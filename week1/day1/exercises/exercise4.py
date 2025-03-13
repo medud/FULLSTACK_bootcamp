@@ -1,9 +1,9 @@
-height_cm = input("How tall are you (in cm)? ")
+user_hight=int(input("give us your height in cm"))
 
 
-height_cm = float(height_cm)
+height= 145
 
-if height_cm > 145:
+if user_hight>height:
         print("You're tall enough to ride! 🎢 Enjoy the thrill!")
 else:
         print("Oops! You're not tall enoght  to ride")

@@ -19,4 +19,11 @@ davids_dog.jump()
        
 sarahs_dog=dog("Teacup",20)
 
-print(f"{davids_dog.name} {davids_dog.height}")
+print(f"{sarahs_dog.name} {sarahs_dog.height}")
+
+bigger_dog=davids_dog
+if sarahs_dog.height > davids_dog.height:
+    bigger_dog =sarahs_dog
+    
+    print (f"the bigger dog is {bigger_dog.name}")
+
