@@ -12,11 +12,11 @@ class Dog:
 
     def fight(self, other_dog):
         my_power = self.weight * self.run_speed()
-        opponent_power = other_dog.weight * other_weight.speed()
+        opponent_power = other_dog.weight * other_dog.run_speed()  
 
-        if my_power > other_power:
+        if my_power > opponent_power:
             return f"{self.name} wins the fight!"
-        elif my_power < other_power:
+        elif my_power < opponent_power:
             return f"{other_dog.name} wins the fight!"
         else:
             return "It's a tie!"

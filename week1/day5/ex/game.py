@@ -1,40 +1,43 @@
+
 import random
-
 class Game:
-    def __init__(self):
-        self.choices = ["rock", "paper", "scissors"]
-
     def get_user_item(self):
-        while True:
-            user_choice = input("Choose rock, paper, or scissors: ").lower()
-            if user_choice in self.choices:
-                return user_choice
-            print("Invalid choice. Please select rock, paper, or scissors.")
+        user_item =input("électionner un élément ('p'ierre/'f'feuille/'c'ciseaux)")
+        if user_item=="p" or user_item=="c" or user_item=="f" or user_item=="P" or user_item=="C" or user_item=="F":
+            print("you have select",user_item.upper())
+        else:
+            print("nothing selected")
+            self.get_user_item()
+        # return user.upper()
 
     def get_computer_item(self):
-        return random.choice(self.choices)
-
+        # print("the computer chose",computer_item)
+        return random.choice(["P" "C" "F"])
+    
     def get_game_result(self, user_item, computer_item):
-        if user_item == computer_item:
-            return "draw"
-        elif (user_item == "rock" and computer_item == "scissors") or \
-             (user_item == "paper" and computer_item == "rock") or \
-             (user_item == "scissors" and computer_item == "paper"):
-            return "win"
+
+        if computer_item ==user_item:
+            print("draw")
+
+        elif user_item == "C" and computer_item =="F":
+            print("win")
+        elif user_item == "F" and computer_item =="P":
+            print("win")
+        elif user_item == "P" and computer_item =="C":
+            print("win")
+
         else:
-            return "loss"
+            print("lose")
 
-    def play(self):
-        user_item = self.get_user_item()
-        computer_item = self.get_computer_item()
-        result = self.get_game_result(user_item, computer_item)
+        
 
-        print(f"\nYou selected {user_item}. The computer selected {computer_item}.")
-        if result == "win":
-            print("You win! 🎉")
-        elif result == "loss":
-            print("You lose! 😢")
-        else:
-            print("It's a draw! 🤝")
 
-        return result
+mohamed=Game()
+
+def play(self):
+
+    user=mohamed.get_user_item()
+    com=mohamed.get_computer_item()
+    mohamed.get_game_result(user,com)
+        
+        
