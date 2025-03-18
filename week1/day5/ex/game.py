@@ -8,6 +8,7 @@ class Game:
         while True:
             user_choice = input("Choose rock, paper, or scissors: ").lower()
             if user_choice in self.choices:
+                print("good choice")
                 return user_choice
             print("Invalid choice. Please select rock, paper, or scissors.")
 
