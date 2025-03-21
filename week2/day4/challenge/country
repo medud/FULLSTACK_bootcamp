@@ -1,0 +1,72 @@
+import requests
+import psycopg2
+import random
+
+# Database connection details
+DB_NAME = "RestaurantDB"
+USER = "postgres"
+PASSWORD = "123"
+HOST = "localhost"
+PORT = 5433
+
+# Create the countries table if it doesn't exist
+def create_table():
+    try:
+        with psycopg2.connect(database=DB_NAME, user=USER, password=PASSWORD, host=HOST, port=PORT) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS countries (
+                        id SERIAL PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL,
+                        capital VARCHAR(255),
+                        flag VARCHAR(10),
+                        subregion VARCHAR(255),
+                        population BIGINT NOT NULL
+                    );
+                """)
+        print("Table 'countries' is ready.")
+    except Exception as e:
+        print("Error creating table:", e)
+
+# Fetch all countries from the REST API
+def fetch_countries():
+    url = "https://restcountries.com/v3.1/all"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print("Error fetching countries:", response.status_code)
+        return []
+
+# Store 10 random countries in the database
+def store_random_countries():
+    countries = fetch_countries()
+    if not countries:
+        return
+    
+    random_countries = random.sample(countries, 10)  # Select 10 random countries
+
+    try:
+        with psycopg2.connect(database=DB_NAME, user=USER, password=PASSWORD, host=HOST, port=PORT) as connection:
+            with connection.cursor() as cursor:
+                for country in random_countries:
+                    name = country["name"]["common"]
+                    capital = country.get("capital", ["Unknown"])[0]  # Some countries might not have a capital
+                    flag = country.get("flag", "🏳")  # Default flag if missing
+                    subregion = country.get("subregion", "Unknown")
+                    population = country.get("population", 0)
+
+                    cursor.execute(
+                        "INSERT INTO countries (name, capital, flag, subregion, population) VALUES (%s, %s, %s, %s, %s)",
+                        (name, capital, flag, subregion, population)
+                    )
+
+        print("10 random countries saved successfully!")
+
+    except Exception as e:
+        print("Database error:", e)
+
+# Run the functions
+if __name__ == "__main__":
+    create_table()  # Ensure table exists
+    store_random_countries()  # Insert data
