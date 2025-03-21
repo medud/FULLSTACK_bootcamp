@@ -34,23 +34,12 @@ LEFT JOIN CustomerProfile cp ON c.id = cp.customer_id
 WHERE cp.isLoggedIn = FALSE OR cp.isLoggedIn IS NULL;
 
 
+--part2
+
 CREATE TABLE Book (
     book_id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL);
-
-CREATE TABLE Student (
-    student_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    age INT CHECK (age <= 15));
-
-CREATE TABLE Library (
-    book_fk_id INT,
-    student_fk_id INT,
-    borrowed_date DATE,
-    PRIMARY KEY (book_fk_id, student_fk_id),
-    FOREIGN KEY (book_fk_id) REFERENCES Book(book_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (student_fk_id) REFERENCES Student(student_id) ON DELETE CASCADE ON UPDATE CASCADE);
 
 
 INSERT INTO Book (title, author) VALUES
@@ -59,11 +48,29 @@ INSERT INTO Book (title, author) VALUES
     ('To kill a mockingbird', 'Harper Lee');
 
 
+
+CREATE TABLE Student (
+    student_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    age INT CHECK (age <= 15));
+
+
+
 INSERT INTO Student (name, age) VALUES
     ('John', 12),
     ('Lera', 11),
     ('Patrick', 10),
     ('Bob', 14);
+    
+
+CREATE TABLE Library (
+    book_fk_id INT,python -
+    student_fk_id INT,
+    borrowed_date DATE,
+    PRIMARY KEY (book_fk_id, student_fk_id),
+    FOREIGN KEY (book_fk_id) REFERENCES Book(book_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (student_fk_id) REFERENCES Student(student_id) ON DELETE CASCADE ON UPDATE CASCADE);
+
 
 
 INSERT INTO Library (book_fk_id, student_fk_id, borrowed_date)
