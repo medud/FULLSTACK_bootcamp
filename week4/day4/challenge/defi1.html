@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire JSON</title>
+</head>
+<body>
+
+    <form id="userForm">
+        <label for="nom">Nom:</label>
+        <input type="text" id="nom" name="nom"><br><br>
+
+        <label for="prenom">Prénom:</label>
+        <input type="text" id="prenom" name="prenom"><br><br>
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <h3>Résultat JSON :</h3>
+    <pre id="jsonOutput"></pre> 
+
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            const nom = document.getElementById("nom").value;
+            const prenom = document.getElementById("prenom").value;
+
+            const userData = {
+                nom: nom,
+                prenom: prenom
+            };
+
+            const jsonString = JSON.stringify(userData, null, 2);
+
+            document.getElementById("jsonOutput").textContent = jsonString;
+        });
+    </script>
+
+</body>
+</html>

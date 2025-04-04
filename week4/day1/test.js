@@ -1,6 +1,9 @@
-const a = 2;
-if (true) {
-    const a = 5;
-    console.log(`in the if block ${a}`);
-}
-console.log(`outside of the if block ${a}`);
+const myArr = [1, 2, 3, 4, 5, 6, 7, 8];
+myArr.every((value)=> { return (value > 0); });
+
+myArr.every(value => value == 5 );
+
+myArr.every((value) => { 
+    console.log(value); 
+    return (value != 10); 
+});
