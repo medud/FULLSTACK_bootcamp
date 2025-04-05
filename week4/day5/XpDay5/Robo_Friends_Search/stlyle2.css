@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: url('https://wallpapercave.com/wp/wp2714518.jpg') repeat;
+    background-size: cover;
+  }
+  
+  header {
+    text-align: center;
+    background-color: #59f1b5;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 3rem;
+    color: #0c1c2c;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  #searchBox {
+    margin-top: 15px;
+    padding: 10px;
+    width: 300px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Robot card container */
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 10px;
+    gap: 20px;
+  }
+  
+  /* Individual card */
+  .card {
+    background-color: #a4f0ff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card img {
+    border-radius: 50%;
+    width: 100%;
+  }
+  
+  .card h2 {
+    font-size: 1.2rem;
+    margin: 10px 0 5px;
+  }
+  
+  .card p {
+    margin: 5px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
