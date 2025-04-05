@@ -3,6 +3,8 @@ body {
     font-family: 'Arial', sans-serif;
     background: url('https://wallpapercave.com/wp/wp2714518.jpg') repeat;
     background-size: cover;
+    background-image: url('./images/circuit-pattern.png');
+
   }
   
   header {
