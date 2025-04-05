@@ -25,8 +25,6 @@ const gameInfo = [
     },
    ];
    
-// const med =gameInfo.forEach(username)
-// console.log(med);
 
 
 const usernames = [];
