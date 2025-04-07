@@ -40,7 +40,7 @@ h1 {
 .card:hover {
   transform: scale(1.05);
 }
-/*
+
 
 .card img {
   width: 100%;
@@ -53,4 +53,4 @@ h1 {
 
 .card p {
   color: #333;
-} */
+}
