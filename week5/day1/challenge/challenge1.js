@@ -22,7 +22,6 @@ function makeAllCaps(words) {
     });
   }
   
-  // Test cases
   
   // Test 1 - catch is executed due to a number in the array
   makeAllCaps([1, "pear", "banana"])
@@ -39,6 +38,6 @@ function makeAllCaps(words) {
   // Test 3 - success case
   makeAllCaps(["apple", "pear", "banana", "melon", "kiwi"])
     .then(arr => sortWords(arr))
-    .then(result => console.log(result)) // ["APPLE", "BANANA", "KIWI", "MELON", "PEAR"]
+    .then(result => console.log(result)) 
     .catch(error => console.log(error));
   
