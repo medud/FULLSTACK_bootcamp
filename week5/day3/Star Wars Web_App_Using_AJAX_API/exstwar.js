@@ -3,8 +3,7 @@ const characterInfo = document.getElementById('character-info');
 const loading = document.getElementById('loading');
 
 button.addEventListener('click', async () => {
-  // SWAPI has 88 people in the database (you can adjust this if needed)
-  const randomId = Math.floor(Math.random() * 88) + 1;
+  const randomId = Math.floor(Math.random() * 83) ;
 
   function showLoading() {
     loading.classList.remove("hidden");
@@ -21,11 +20,11 @@ button.addEventListener('click', async () => {
   try {
     const response = await fetch(`https://www.swapi.tech/api/people/${randomId}`);
     const data = await response.json();
-
-      
-
+ 
     if (data.message === "ok") {
       const person = data.result.properties;
+      console.log(person);
+      
 
       characterInfo.innerHTML = `
         <h2>${person.name}</h2>
