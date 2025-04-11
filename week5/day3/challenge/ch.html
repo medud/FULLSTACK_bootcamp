@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        /* ======= GLOBAL ======= */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #1f4037, #99f2c8);
+            background-image: url('https://forsancentralmall.com/media/2717/money-exchange.jpg?anchor=center&mode=crop&width=1920&height=700&rnd=132548161050000000');
+            /* Green money vibes */
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 255, 100, 0.4);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: row;
+        }
+
+        input,
+        select {
+            padding: 12px;
+            margin: 10px;
+            width: 45%;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 5px #2ecc71;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin-top: 20px;
+            background-color: #27ae60;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2ecc71;
+        }
+
+        #switch {
+            background: transparent;
+            color: #ffffff;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #f1f1f1;
+            text-shadow: 1px 1px 2px #000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>💱 Currency Converter</h1>
+
+    <div class="container">
+        <input type="number" id="amount" placeholder="Enter amount" />
+
+        <div class="content">
+            <select id="fromCurrency"></select>
+            <button id="switch"><i class="fas fa-exchange-alt"></i></button>
+            <select id="toCurrency"></select>
+        </div>
+
+        <button id="convert">Convert</button>
+
+        <h2 id="result"></h2>
+    </div>
+
+    <script>
+
+        const fromSelect = document.getElementById("fromCurrency");
+        const toSelect = document.getElementById("toCurrency");
+        const amountInput = document.getElementById("amount");
+        const resultDisplay = document.getElementById("result");
+        const switchBtn = document.getElementById("switch");
+        const convertBtn = document.getElementById("convert");
+
+        // 1.
+        async function loadCurrencies() {
+            try {
+                const response = await fetch(`https://v6.exchangerate-api.com/v6/336294522e732fcb6ce46fbd/codes`);
+                if (!response.ok) {
+                    throw new Error("error", response.status)
+                }
+                const data = await response.json();
+
+                data.supported_codes.forEach(element => {
+                    const option = document.createElement("option")
+                    option.textContent = `${element[0]}---${element[1]}`
+                    option.value = element[0]
+                    fromSelect.appendChild(option)
+                    toSelect.appendChild(option.cloneNode(true))
+                });
+
+
+            } catch (error) {
+                resultDisplay.textContent = "Erreur lors du chargement des devises.";
+            }
+        }
+        loadCurrencies()
+
+        // 2.
+        async function convertCurrency() {
+            const resulat = await loadCurrencies()
+            const from = fromSelect.value;
+            const to = toSelect.value;
+            // const amount = parseFloat(amountInput.value);
+            try {
+                const response = await fetch(`https://v6.exchangerate-api.com/v6/336294522e732fcb6ce46fbd/pair/${from}/${to}`);
+                if (!response.ok) {
+                    throw new Error("error", response.status)
+                }
+                const data = await response.json();
+                return data.conversion_rate;
+
+            } catch (error) {
+                resultDisplay.textContent = "Impossible de récupérer les données.";
+            }
+        }
+        convertCurrency()
+        convertBtn.addEventListener('click', async function getResult() {
+            const amount = amountInput.value
+            const convert_rate = await convertCurrency()
+            const resulat = amount * convert_rate
+            resultDisplay.textContent = resulat
+
+
+        })
+
+
+    </script>
+</body>
+
+</html>
