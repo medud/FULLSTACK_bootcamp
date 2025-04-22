@@ -1,5 +1,26 @@
 {
   "dependencies": {
     "prompt-sync": "^4.2.0"
-  }
+  },
+  "name": "bootcamp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/medud/FULLSTACK_bootcamp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/medud/FULLSTACK_bootcamp/issues"
+  },
+  
+  "homepage": "https://github.com/medud/FULLSTACK_bootcamp#readme",
+  "description": ""
+  
 }
+
