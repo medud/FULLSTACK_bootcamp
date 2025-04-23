@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emoji Guess Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .option {
+      margin: 10px 0;
+    }
+    #feedback {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Guess the Emoji!</h1>
+
+  <div>
+    <label>
+      Enter your name:
+      <input type="text" id="playerName" placeholder="Your name" required>
+    </label>
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <div id="game"></div>
+  <div id="feedback"></div>
+
+  <script>
+    let currentQuestion = null;
+
+    async function startGame() {
+      document.getElementById('feedback').innerText = '';
+      const res = await fetch('/question');
+      currentQuestion = await res.json();
+
+      const gameDiv = document.getElementById('game');
+      gameDiv.innerHTML = `
+        <h2 style="font-size: 3rem;">${currentQuestion.emoji}</h2>
+        <form id="guessForm">
+          ${currentQuestion.options.map(opt => `
+            <div class="option">
+              <label>
+                <input type="radio" name="answer" value="${opt}" required>
+                ${opt}
+              </label>
+            </div>
+          `).join('')}
+          <button type="submit">Submit</button>
+        </form>
+      `;
+
+      document.getElementById('guessForm').addEventListener('submit', handleGuess);
+    }
+
+    async function handleGuess(e) {
+      e.preventDefault();
+      const playerName = document.getElementById('playerName').value.trim();
+      if (!playerName) {
+        alert('Please enter your name');
+      } 
+
+      const formData = new FormData(e.target);
+      const answer = formData.get('answer');
+
+      const res = await fetch('/guess', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          answer,
+          correct: currentQuestion.correctAnswer,
+          playerName
+        })
+      });
+
+      const text = await res.text();
+      document.getElementById('feedback').innerHTML = text;
+
+      // Automatically start a new round after a delay
+      setTimeout(startGame, 3000);
+    }
+
+    // Initial UI state
+    document.getElementById('game').innerHTML = '<p>Please enter your name and start the game.</p>';
+  </script>
+</body>
+</html>
